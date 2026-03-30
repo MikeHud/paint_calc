@@ -46,8 +46,8 @@ function calculate() {
   }
 
   const ratio = paintData[paintType].ratios[hardenerType];
-  const baseWeight = Math.round((totalWeight * ratio) / (ratio + 1));
-  const hardenerWeight = Math.round(totalWeight / (ratio + 1));
+  const baseWeight = ((totalWeight * ratio) / (ratio + 1)).toFixed(1);
+  const hardenerWeight = (totalWeight / (ratio + 1)).toFixed(1);
 
   baseWeightSpan.textContent = baseWeight;
   hardenerWeightSpan.textContent = hardenerWeight;
@@ -66,8 +66,8 @@ function copyResults() {
   const paint = paintData[paintType];
   const totalWeight = parseFloat(totalWeightInput.value);
   const ratio = paint.ratios[hardenerType];
-  const baseWeight = Math.round((totalWeight * ratio) / (ratio + 1));
-  const hardenerWeight = Math.round(totalWeight / (ratio + 1));
+  const baseWeight = ((totalWeight * ratio) / (ratio + 1)).toFixed(1);
+  const hardenerWeight = (totalWeight / (ratio + 1)).toFixed(1);
   const hardenerLabel = hardenerType === "winter" ? "Winter Grade" : "Standard";
 
   const text = [
