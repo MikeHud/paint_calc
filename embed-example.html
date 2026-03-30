@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Embedding Example - Jotun Paint Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .embed-section {
+            margin: 40px 0;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+        
+        .calculator-container {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        
+        .code-example {
+            background: #f5f5f5;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: monospace;
+            margin: 10px 0;
+            overflow-x: auto;
+        }
+        
+        h2 {
+            color: #333;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 10px;
+        }
+        
+        h3 {
+            color: #555;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Jotun Paint Mixing Calculator</h1>
+        <p>Embedding Examples and Documentation</p>
+    </div>
+
+    <div class="embed-section">
+        <h2>Basic Embedding Example</h2>
+        <p>This shows the calculator embedded with fixed dimensions:</p>
+        
+        <div class="code-example">
+&lt;iframe 
+    src="index.html" 
+    width="500" 
+    height="600" 
+    frameborder="0"
+    scrolling="no"&gt;
+&lt;/iframe&gt;
+        </div>
+        
+        <div class="calculator-container">
+            <iframe 
+                src="index.html" 
+                width="500" 
+                height="600" 
+                frameborder="0"
+                scrolling="no">
+            </iframe>
+        </div>
+    </div>
+
+    <div class="embed-section">
+        <h2>Responsive Embedding Example</h2>
+        <p>This shows the calculator embedded with responsive design that adapts to different screen sizes:</p>
+        
+        <div class="code-example">
+&lt;div style="position: relative; padding-bottom: 120%; height: 0; overflow: hidden;"&gt;
+    &lt;iframe 
+        src="index.html" 
+        style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;"
+        scrolling="no"&gt;
+    &lt;/iframe&gt;
+&lt;/div&gt;
+        </div>
+        
+        <div style="position: relative; padding-bottom: 120%; height: 0; overflow: hidden;">
+            <iframe 
+                src="index.html" 
+                style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;"
+                scrolling="no">
+            </iframe>
+        </div>
+    </div>
+
+    <div class="embed-section">
+        <h2>Custom Styling Example</h2>
+        <p>You can customize the appearance by modifying the CSS or adding custom styles:</p>
+        
+        <div class="code-example">
+&lt;style&gt;
+.calculator-iframe {
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    margin: 20px 0;
+}
+&lt;/style&gt;
+
+&lt;iframe 
+    src="index.html" 
+    width="500" 
+    height="600" 
+    class="calculator-iframe"
+    frameborder="0"
+    scrolling="no"&gt;
+&lt;/iframe&gt;
+        </div>
+        
+        <style>
+        .calculator-iframe {
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            margin: 20px 0;
+        }
+        </style>
+        
+        <div class="calculator-container">
+            <iframe 
+                src="index.html" 
+                width="500" 
+                height="600" 
+                class="calculator-iframe"
+                frameborder="0"
+                scrolling="no">
+            </iframe>
+        </div>
+    </div>
+
+    <div class="embed-section">
+        <h2>Integration Tips</h2>
+        
+        <h3>1. Path Configuration</h3>
+        <p>Make sure to update the <code>src</code> attribute to point to the correct path where your calculator files are located.</p>
+        
+        <h3>2. Responsive Design</h3>
+        <p>Use the responsive embedding method for better mobile experience. The calculator automatically adapts its styling when embedded.</p>
+        
+        <h3>3. Cross-Origin Issues</h3>
+        <p>If embedding from a different domain, ensure CORS policies allow iframe embedding.</p>
+        
+        <h3>4. Performance</h3>
+        <p>The calculator is lightweight and loads quickly. Consider lazy loading for better page performance.</p>
+        
+        <h3>5. Accessibility</h3>
+        <p>The calculator includes proper ARIA labels and keyboard navigation for accessibility compliance.</p>
+    </div>
+
+    <div class="embed-section">
+        <h2>API Integration</h2>
+        <p>You can also integrate the calculator programmatically:</p>
+        
+        <div class="code-example">
+// Access the calculator API
+const calculator = window.JotunPaintCalculator;
+
+// Get paint data
+const paintData = calculator.paintData;
+
+// Trigger calculation programmatically
+calculator.calculateMixing();
+
+// Listen for calculation events
+document.addEventListener('calculationComplete', function(event) {
+    console.log('Calculation completed:', event.detail);
+});
+        </div>
+    </div>
+
+    <footer style="text-align: center; margin-top: 40px; padding: 20px; border-top: 1px solid #ddd;">
+        <p>Jotun Paint Mixing Calculator - Embedding Examples</p>
+        <p>For more information, see the README.md file</p>
+    </footer>
+</body>
+</html>
