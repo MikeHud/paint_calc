@@ -328,6 +328,92 @@ select:focus {
   transform: scale(0.99);
 }
 
+/* Coverage calculator */
+.coverage-toggle {
+  background: none;
+  border: none;
+  padding: 6px 0 0;
+  font-size: 13px;
+  color: #1E3A5F;
+  cursor: pointer;
+  text-align: left;
+  font-weight: 500;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.coverage-toggle:hover {
+  color: #162d4a;
+}
+
+.coverage-calc {
+  background: #F4F7FB;
+  border: 1px solid #D0DCF0;
+  border-radius: 12px;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 4px;
+}
+
+.coverage-result {
+  background: #fff;
+  border: 1px solid #D0DCF0;
+  border-radius: 10px;
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.coverage-output {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+}
+
+.coverage-label {
+  font-size: 12px;
+  color: #666;
+  font-weight: 500;
+}
+
+.coverage-value {
+  font-size: 28px;
+  font-weight: 800;
+  color: #111;
+  letter-spacing: -1px;
+}
+
+.coverage-unit {
+  font-size: 13px;
+  color: #999;
+}
+
+.coverage-note {
+  font-size: 12px;
+  color: #888;
+  line-height: 1.4;
+}
+
+.use-coverage-btn {
+  width: 100%;
+  padding: 10px;
+  background: #E85D04;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.use-coverage-btn:hover {
+  background: #c94e02;
+}
+
 .hidden {
   display: none;
 }

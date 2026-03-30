@@ -54,6 +54,51 @@
             />
             <span class="input-unit">g</span>
           </div>
+          <button type="button" id="coverageToggle" class="coverage-toggle">
+            ▸ How do I know how much paint I need?
+          </button>
+        </div>
+
+        <div id="coverageCalc" class="coverage-calc hidden">
+          <div class="form-group">
+            <label for="surfaceArea">Surface Area</label>
+            <div class="input-wrapper">
+              <input
+                type="number"
+                id="surfaceArea"
+                min="0.1"
+                step="0.1"
+                placeholder="0"
+              />
+              <span class="input-unit">m²</span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Number of Coats</label>
+            <div class="radio-group">
+              <label class="radio-card">
+                <input type="radio" name="numCoats" value="1" checked />
+                <div class="radio-content">
+                  <span class="radio-title">1 coat</span>
+                </div>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="numCoats" value="2" />
+                <div class="radio-content">
+                  <span class="radio-title">2 coats</span>
+                </div>
+              </label>
+            </div>
+          </div>
+          <div id="coverageResult" class="coverage-result hidden">
+            <div class="coverage-output">
+              <span class="coverage-label">Estimated paint needed</span>
+              <span id="coverageGrams" class="coverage-value"></span>
+              <span class="coverage-unit">grams</span>
+            </div>
+            <p class="coverage-note">Theoretical at minimum film thickness. Add 10&ndash;15% for brush/roller losses.</p>
+            <button type="button" id="useCoverageBtn" class="use-coverage-btn">Use this amount &uarr;</button>
+          </div>
         </div>
       </div>
 
@@ -85,7 +130,7 @@
 
         <div class="instructions">
           <p>Zero the scales with your container, add base first, then top up with hardener to reach total weight. Use scales accurate to &plusmn;1g.</p>
-          <p class="pot-life-note">Once mixed, pot life varies with temperature &mdash; consult the product datasheet before use.</p>
+          <p id="potLifeNote" class="pot-life-note"></p>
         </div>
 
         <button id="copyBtn" class="copy-btn">Copy Results</button>
