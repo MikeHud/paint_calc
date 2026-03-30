@@ -451,14 +451,7 @@ select:focus {
 
 /* Embed (iframe) */
 body.embeddable {
-  background: transparent;
-  min-height: unset;
-  padding: 0;
-  align-items: flex-start;
-}
-
-.embeddable .calculator-container {
-  box-shadow: none;
-  border-radius: 0;
-  max-width: 100%;
+  background: #EAECEF;
+  min-height: 100vh;
+  padding: 20px;
 }
