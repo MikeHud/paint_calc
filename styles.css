@@ -124,8 +124,9 @@ select:focus {
 }
 
 .radio-hint {
-  font-size: 12px;
+  font-size: 11px;
   color: #888;
+  white-space: nowrap;
 }
 
 /* Weight input */
@@ -451,7 +452,12 @@ select:focus {
 
 /* Embed (iframe) */
 body.embeddable {
-  background: #EAECEF;
-  min-height: 100vh;
-  padding: 20px;
+  background: transparent;
+  min-height: unset;
+  padding: 0;
+}
+
+.embeddable .calculator-container {
+  max-width: 100%;
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.08);
 }
