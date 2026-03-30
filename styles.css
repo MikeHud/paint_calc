@@ -455,10 +455,9 @@ select:focus {
 body.embeddable {
   background: transparent;
   min-height: unset;
-  padding: 0;
+  padding: 16px;
 }
 
 .embeddable .calculator-container {
   max-width: 100%;
-  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.08);
 }
