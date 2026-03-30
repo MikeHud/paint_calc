@@ -188,6 +188,8 @@ copyBtn.addEventListener("click", copyResults);
 document.addEventListener("DOMContentLoaded", () => {
   checkIfEmbedded();
   totalWeightInput.focus();
+  // Small delay to ensure layout is complete before measuring
+  setTimeout(notifyParentHeight, 100);
 });
 
 window.JotunPaintCalculator = { calculate, paintData };
