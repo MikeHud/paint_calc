@@ -3,82 +3,92 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Jotun Paint Mixing Calculator by weight</title>
+    <title>Jotun Epoxy Mixing Calculator</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
     <div class="calculator-container">
-      <h2>Jotun Paint Mixing Calculator by weight</h2>
+      <div class="header">
+        <h2>Jotun Epoxy Mixing Calculator</h2>
+        <p class="subtitle">By weight &mdash; Jotamastic 2-part epoxy</p>
+      </div>
 
-      <div class="selection-row">
+      <div class="form-section">
         <div class="form-group">
-          <label for="paintType">Paint Type:</label>
-          <select id="paintType" required>
+          <label for="paintType">Paint Type</label>
+          <select id="paintType">
             <option value="jotamastic-87">Jotamastic 87</option>
             <option value="jotamastic-90">Jotamastic 90</option>
           </select>
         </div>
 
         <div class="form-group">
-          <label>Hardener Type:</label>
+          <label>Hardener Type</label>
           <div class="radio-group">
-            <label class="radio-label">
-              <input
-                type="radio"
-                name="hardenerType"
-                value="standard"
-                checked
-              />
-              <span class="radio-text">Standard</span>
+            <label class="radio-card">
+              <input type="radio" name="hardenerType" value="standard" checked />
+              <div class="radio-content">
+                <span class="radio-title">Standard</span>
+                <span class="radio-hint">Above 10°C / 50°F</span>
+              </div>
             </label>
-            <label class="radio-label">
+            <label class="radio-card">
               <input type="radio" name="hardenerType" value="winter" />
-              <span class="radio-text">Winter Grade</span>
+              <div class="radio-content">
+                <span class="radio-title">Winter Grade</span>
+                <span class="radio-hint">Below 10°C / 50°F</span>
+              </div>
             </label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="totalWeight">Total Weight Needed</label>
+          <div class="input-wrapper">
+            <input
+              type="number"
+              id="totalWeight"
+              min="1"
+              step="1"
+              placeholder="0"
+            />
+            <span class="input-unit">g</span>
           </div>
         </div>
       </div>
 
-      <div class="form-group">
-        <label for="totalWeight">Total Weight Needed (grams):</label>
-        <input
-          type="number"
-          id="totalWeight"
-          min="1"
-          step="1"
-          placeholder="Enter total weight"
-          required
-        />
-      </div>
-
-      <button id="calculateBtn" class="calculate-btn">
-        Calculate Mixing Ratio
-      </button>
-
       <div id="results" class="results hidden">
-        <h3>Mixing Instructions</h3>
-        <div class="result-item">
-          <span class="label">Base Component:</span>
-          <span id="baseWeight" class="value"></span>
+        <div class="ratio-bar-wrap">
+          <div class="ratio-bar">
+            <div id="baseBar" class="bar-base"></div>
+            <div id="hardenerBar" class="bar-hardener"></div>
+          </div>
+          <div class="ratio-legend">
+            <span class="legend-base"><span class="legend-dot"></span>Base</span>
+            <span id="ratioLabel" class="ratio-text"></span>
+            <span class="legend-hardener"><span class="legend-dot"></span>Hardener</span>
+          </div>
         </div>
-        <div class="result-item">
-          <span class="label">Hardener Component:</span>
-          <span id="hardenerWeight" class="value"></span>
-        </div>
-        <div class="result-item">
-          <span class="label">Mixing Ratio:</span>
-          <span id="mixingRatio" class="value"></span>
-        </div>
-      </div>
 
-      <div class="notes">
-        <p>– use digital scales accurate to the nearest gram</p>
-        <p>– put container on scales and set to zero</p>
-        <p>– Measure out base then add hardener to make up total weight</p>
-      </div>
+        <div class="result-cards">
+          <div class="result-card result-card--base">
+            <span class="result-label">Base</span>
+            <span id="baseWeight" class="result-value"></span>
+            <span class="result-unit">grams</span>
+          </div>
+          <div class="result-card result-card--hardener">
+            <span class="result-label">Hardener</span>
+            <span id="hardenerWeight" class="result-value"></span>
+            <span class="result-unit">grams</span>
+          </div>
+        </div>
 
-      <div id="error" class="error hidden">
-        <p id="errorMessage"></p>
+        <div class="instructions">
+          <p>Zero the scales with your container, add base first, then top up with hardener to reach total weight. Use scales accurate to &plusmn;1g.</p>
+          <p class="pot-life-note">Once mixed, pot life varies with temperature &mdash; consult the product datasheet before use.</p>
+        </div>
+
+        <button id="copyBtn" class="copy-btn">Copy Results</button>
       </div>
     </div>
 

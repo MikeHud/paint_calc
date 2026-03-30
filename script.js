@@ -1,119 +1,101 @@
-// Jotun paint mixing data
 const paintData = {
   "jotamastic-87": {
     name: "Jotamastic 87",
     ratios: {
-      standard: 9, // 4:1 ratio
-      winter: 6, // 3:1 ratio
+      standard: 8.94,
+      winter: 5.96,
     },
-    description: "High-build epoxy coating",
   },
   "jotamastic-90": {
     name: "Jotamastic 90",
     ratios: {
-      standard: 5.5, // 4:1 ratio
-      winter: 5.5, // 3:1 ratio
+      standard: 5.5,
+      winter: 5.5,
     },
-    description: "High-build epoxy coating",
   },
 };
 
-// DOM elements
 const paintTypeSelect = document.getElementById("paintType");
 const totalWeightInput = document.getElementById("totalWeight");
-const hardenerTypeRadios = document.querySelectorAll(
-  'input[name="hardenerType"]'
-);
-const calculateBtn = document.getElementById("calculateBtn");
 const resultsDiv = document.getElementById("results");
-const errorDiv = document.getElementById("error");
 const baseWeightSpan = document.getElementById("baseWeight");
 const hardenerWeightSpan = document.getElementById("hardenerWeight");
-const mixingRatioSpan = document.getElementById("mixingRatio");
-const errorMessageP = document.getElementById("errorMessage");
+const baseBar = document.getElementById("baseBar");
+const hardenerBar = document.getElementById("hardenerBar");
+const ratioLabel = document.getElementById("ratioLabel");
+const copyBtn = document.getElementById("copyBtn");
 
-// Check if running in iframe for embeddable styling
 function checkIfEmbedded() {
   if (window.self !== window.top) {
     document.body.classList.add("embeddable");
   }
 }
 
-// Calculate mixing ratios
-function calculateMixing() {
+function getSelectedHardener() {
+  return document.querySelector('input[name="hardenerType"]:checked')?.value;
+}
+
+function calculate() {
   const paintType = paintTypeSelect.value;
   const totalWeight = parseFloat(totalWeightInput.value);
-  const hardenerType = document.querySelector(
-    'input[name="hardenerType"]:checked'
-  )?.value;
+  const hardenerType = getSelectedHardener();
 
-  // Hide previous results and errors
-  resultsDiv.classList.add("hidden");
-  errorDiv.classList.add("hidden");
-
-  // Validation
-  if (!paintType) {
-    showError("Please select a paint type.");
+  if (!totalWeightInput.value || totalWeight <= 0) {
+    resultsDiv.classList.add("hidden");
     return;
   }
 
-  if (!totalWeight || totalWeight <= 0) {
-    showError("Please enter a valid total weight greater than 0.");
-    return;
-  }
+  const ratio = paintData[paintType].ratios[hardenerType];
+  const baseWeight = Math.round((totalWeight * ratio) / (ratio + 1));
+  const hardenerWeight = Math.round(totalWeight / (ratio + 1));
 
-  if (!hardenerType) {
-    showError("Please select a hardener type.");
-    return;
-  }
+  baseWeightSpan.textContent = baseWeight;
+  hardenerWeightSpan.textContent = hardenerWeight;
 
-  const paint = paintData[paintType];
-  if (!paint) {
-    showError("Selected paint type not found.");
-    return;
-  }
-
-  // Get the ratios for the selected hardener type
-  const ratios = paint.ratios[hardenerType];
-
-  // Calculate weights
-  const baseWeight = (totalWeight * ratios) / (ratios + 1);
-  const hardenerWeight = (totalWeight * 1) / (ratios + 1);
-
-  // Display results
-  baseWeightSpan.textContent = `${baseWeight.toFixed(0)} g`;
-  hardenerWeightSpan.textContent = `${hardenerWeight.toFixed(0)} g`;
-  mixingRatioSpan.textContent = `${ratios}:1 (base:hardener)`;
+  const basePercent = (ratio / (ratio + 1)) * 100;
+  baseBar.style.width = `${basePercent.toFixed(1)}%`;
+  hardenerBar.style.width = `${(100 - basePercent).toFixed(1)}%`;
+  ratioLabel.textContent = `${ratio}:1 mix ratio (base : hardener)`;
 
   resultsDiv.classList.remove("hidden");
 }
 
-// Show error message
-function showError(message) {
-  errorMessageP.textContent = message;
-  errorDiv.classList.remove("hidden");
+function copyResults() {
+  const paintType = paintTypeSelect.value;
+  const hardenerType = getSelectedHardener();
+  const paint = paintData[paintType];
+  const totalWeight = parseFloat(totalWeightInput.value);
+  const ratio = paint.ratios[hardenerType];
+  const baseWeight = Math.round((totalWeight * ratio) / (ratio + 1));
+  const hardenerWeight = Math.round(totalWeight / (ratio + 1));
+  const hardenerLabel = hardenerType === "winter" ? "Winter Grade" : "Standard";
+
+  const text = [
+    `${paint.name} — ${hardenerLabel} hardener`,
+    `Base:     ${baseWeight}g`,
+    `Hardener: ${hardenerWeight}g`,
+    `Total:    ${totalWeight}g`,
+  ].join("\n");
+
+  navigator.clipboard.writeText(text).then(() => {
+    copyBtn.textContent = "Copied!";
+    setTimeout(() => (copyBtn.textContent = "Copy Results"), 2000);
+  }).catch(() => {
+    copyBtn.textContent = "Copy failed";
+    setTimeout(() => (copyBtn.textContent = "Copy Results"), 2000);
+  });
 }
 
-// Event listeners
-calculateBtn.addEventListener("click", calculateMixing);
-
-// Allow Enter key to trigger calculation
-totalWeightInput.addEventListener("keypress", function (e) {
-  if (e.key === "Enter") {
-    calculateMixing();
-  }
+paintTypeSelect.addEventListener("change", calculate);
+document.querySelectorAll('input[name="hardenerType"]').forEach((r) => {
+  r.addEventListener("change", calculate);
 });
+totalWeightInput.addEventListener("input", calculate);
+copyBtn.addEventListener("click", copyResults);
 
-// Initialize
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", () => {
   checkIfEmbedded();
-
-  // Focus on first input for better UX
-  paintTypeSelect.focus();
+  totalWeightInput.focus();
 });
 
-// Export for external use (if needed)
-window.JotunPaintCalculator = {
-  calculateMixing,
-  paintData,
-};
+window.JotunPaintCalculator = { calculate, paintData };
