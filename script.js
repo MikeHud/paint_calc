@@ -60,6 +60,12 @@ function checkIfEmbedded() {
   }
 }
 
+function notifyParentHeight() {
+  if (window.self !== window.top) {
+    window.parent.postMessage({ iframeHeight: document.documentElement.scrollHeight }, "*");
+  }
+}
+
 function getSelectedHardener() {
   return document.querySelector('input[name="hardenerType"]:checked')?.value;
 }
@@ -94,6 +100,7 @@ function calculate() {
   potLifeNote.textContent = `Pot life: ${paint.potLife[hardenerType]}`;
 
   resultsDiv.classList.remove("hidden");
+  notifyParentHeight();
 }
 
 function calculateCoverage() {
@@ -113,6 +120,7 @@ function calculateCoverage() {
 
   coverageGramsSpan.textContent = totalGrams;
   coverageResult.classList.remove("hidden");
+  notifyParentHeight();
 }
 
 function copyResults() {
@@ -148,6 +156,7 @@ coverageToggle.addEventListener("click", () => {
     ? "▸ How do I know how much paint I need?"
     : "▾ How do I know how much paint I need?";
   if (!isHidden) surfaceAreaInput.focus();
+  notifyParentHeight();
 });
 
 // Use coverage amount
